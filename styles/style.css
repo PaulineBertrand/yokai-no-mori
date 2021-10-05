@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --light-background: #fff3f0;
+    --reddish-color: #89043d;
+    --navbar-color: #014152;
+    --button-color: #219C85;
+    /*#d65108;*/
+    /*#014152,#0C7871,#219C85,#48A882,#76B07A,#014152,#0C7871,#219C85*/
+    --auxiliary-color: black;
+    --accent-color: #76B07A;
+    --board-color: #CC7722;
+    --square-size: 100px;
+}
+
+body {
+    background-color: var(--light-background);
+    background-image: url("hasan-almasi-Fcsdj1fcrac-unsplash.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--navbar-color);
+    padding: 20px;
+}
+
+button {
+    background-color: var(--button-color);
+    width: 100px;
+    height: 30px;
+    margin: 20px;
+}
+
+h1 {
+    color: var(--auxiliary-color);
+    padding: 10px;
+}
+
+.big-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reserve {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: var(--square-size);
+    width: 3*var(--square-size);
+    margin: 10px;
+}
+
+.board {
+    /* box-sizing: border-box doesn't seem to work here and I don't know why */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    background-color: var(--board-color);
+    /* max-width: 40%; */
+    /* min-width: 500px; */
+    /* min-height:  */
+    width: 3*var(--square-size) - 4px;
+    height: 4*var(--square-size) - 4px;
+    border: 2px solid black;
+    background-image: url("WoodPattern.jpg");
+}
+
+.square {
+    border: 2px solid black;
+    width: var(--square-size);
+    height: var(--square-size);
+}
+
+.reserve-square {
+    width: var(--square-size);
+    height: var(--square-size);
+}
+
+h2 {
+    padding: 20px;
+}
+
+.possible-movements {
+    border: 5px solid black;
+}
+
+
+[content="koropokurru"] {
+    background-image: url("yokaiKoroppuru.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[content="kodama"] {
+    background-image: url("yokaiKodama.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;}
+
+[content="kitsune"] {
+    background-image: url("yokaiKitsune.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;}
+
+[content="tanuki"] {
+    background-image: url("yokaiTanuki.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;}
+
+[player="player2"] {
+    transform: rotate(180deg);
+}
