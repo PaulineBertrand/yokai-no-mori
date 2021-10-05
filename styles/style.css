@@ -118,6 +118,13 @@ h2 {
     background-repeat: no-repeat;
     background-position: center;}
 
+[content="samurai"] {
+    background-image: url("yokaiSamurai.png");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 [player="player2"] {
     transform: rotate(180deg);
 }

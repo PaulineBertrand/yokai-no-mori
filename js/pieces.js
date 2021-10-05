@@ -11,20 +11,17 @@ export function removeOffLimits(positions) {
     return filteredPositions;
 }
 
-function removeOccupiedPositions(positions) {
-    return positions;
-    // let's see about this later
-}
-
 
 // Move functions ---------------------------------------------------------------------------------------
-
+// Only the samurai and the kodama are asymmetrical and need player as an argument,
+// but I'm having it on all functions for fluidity in index.js
 
 export const moves = {
     kodama: moveKodama,
     kitsune: moveKitsune,
     koropokurru: moveKoropokurru,
-    tanuki: moveTanuki
+    tanuki: moveTanuki,
+    samurai: moveSamurai
 };
 
 export function moveKodama(position, player) {
@@ -61,6 +58,30 @@ export function moveKoropokurru(position, player) {
     return removeOffLimits(positions);
 }
 
+export function moveSamurai(position, player) {
+    const positions = [];
+    // There is probably a better way to do all this...
+    if (player === "player1") {
+        for (let i = -1; i < 2; i++) {
+            positions.push([position[0] - 1, position[1] + i]);
+        }
+        positions.push([position[0], position[1] - 1]);
+        positions.push([position[0], position[1] + 1]); 
+        positions.push([position[0] + 1, position[1]]);
+    }
+
+    if (player === "player2") {
+        for (let i = -1; i < 2; i++) {
+            positions.push([position[0] + 1, position[1] + i]);
+        }
+        positions.push([position[0], position[1] - 1]);
+        positions.push([position[0], position[1] + 1]); 
+        positions.push([position[0] - 1, position[1]]);
+    }
+    
+    return removeOffLimits(positions);
+}
+
 
 // This function shows the squares where the player can move his piece
 
@@ -81,7 +102,18 @@ export function showPossibleMovements(square) {
     });
 }
 
+// Check if a kodama has arrived at the end line and 
+// transform it into a samurai
 
+export function transformKodama(square) {
+    const piece = square.getAttribute("content");
+    const xPosition = Number(square.getAttribute("x"));
+    const player = square.getAttribute("player");
+    // the following is a big condition but basically it just tests whether a kodama has arrived to a finish line
+    if ((piece === "kodama") && ((player === "player1" && xPosition === 0) || (player === "player2" && xPosition === 3))) {
+        square.setAttribute("content", "samurai");
+    }
+}
 
 // function createKing(currCamp) {
 //     return {

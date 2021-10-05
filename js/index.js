@@ -70,7 +70,10 @@ function squareClicked(event) {
         landOnBoard(activePiece, square);
 
     } else {
-        alert("You can't go there, silly");
+        // here we assume that if the player clicks outside of the highlighted scope, s.he wants to let go of the selected piece 
+        boardPieceIsSelected = false;
+        activePiece = null;
+        board.cleanAllPossibleMovementClasses();
     }
 }
 
@@ -123,9 +126,8 @@ function movePiece(formerSquare, newSquare) {
     formerSquare.setAttribute("player", "noplayer");
     newSquare.setAttribute("player", activePlayer);
 
-    // check if there is a victory by koropokurru to the finish line
+    // check if there is a victory by Koropokurru to the finish line
     if (piece === "koropokurru") {
-        console.log()
         if (activePlayer === "player1" && Number(newSquare.getAttribute("x")) === 0) {
             alert(`Congratulations!! ${players[activePlayer]["name"]} has won!!`);
         };
@@ -133,6 +135,9 @@ function movePiece(formerSquare, newSquare) {
             alert(`Congratulations!! ${players[activePlayer]["name"]} has won!!`);
         };
     };
+
+    // also check whether a Kodama transforms into a Samurai
+    pieces.transformKodama(newSquare);
 
     // removing the possible movements
     board.cleanAllPossibleMovementClasses();
