@@ -10,9 +10,10 @@ const allSquares = document.querySelectorAll(".square");
 board.setXandY(allSquares);
 board.setUpBoard(allSquares);
 
+//
 // getting players names, displaying them and deciding which player starts
 players.player1.name = prompt("Please enter your name. We will decide who starts at random.");
-players.player2.name = window.prompt("Please enter the name for the other player");
+players.player2.name = prompt("Please enter the name for the other player");
 
 const namePlayer1 = document.querySelector(".player-1-name");
 const namePlayer2 = document.querySelector(".player-2-name");
@@ -43,7 +44,7 @@ function squareClicked(event) {
     // First we check whether it's the first or second click / whether a piece has been selected
     if (!boardPieceIsSelected && !reservePieceIsSelected) {
         if (board.checkIsEmpty(square) || board.checkEnemyPiece(currentPlayer, square)) {
-            alert(`${currentPlayer}, please select one of your pieces!`);
+            alert(`${players[currentPlayer]["name"]}, please select one of your pieces!`);
 
         } else {
             boardPieceIsSelected = true;
@@ -58,9 +59,6 @@ function squareClicked(event) {
             boardPieceIsSelected = false;
             activePiece = null;
 
-        } else if (!board.checkEnemyPiece(currentPlayer, square)) {
-            alert("You can't eat your own pieces, silly.");
-
         } else {
             eatPiece(activePiece, square);
             currentPlayer = players.changeTurn(currentPlayer);
@@ -72,7 +70,7 @@ function squareClicked(event) {
         landOnBoard(activePiece, square);
 
     } else {
-        alert("You can't go there");
+        alert("You can't go there, silly");
     }
 }
 
@@ -125,6 +123,17 @@ function movePiece(formerSquare, newSquare) {
     formerSquare.setAttribute("player", "noplayer");
     newSquare.setAttribute("player", activePlayer);
 
+    // check if there is a victory by koropokurru to the finish line
+    if (piece === "koropokurru") {
+        console.log()
+        if (activePlayer === "player1" && Number(newSquare.getAttribute("x")) === 0) {
+            alert(`Congratulations!! ${players[activePlayer]["name"]} has won!!`);
+        };
+        if (activePlayer === "player2" && Number(newSquare.getAttribute("x")) === 3) {
+            alert(`Congratulations!! ${players[activePlayer]["name"]} has won!!`);
+        };
+    };
+
     // removing the possible movements
     board.cleanAllPossibleMovementClasses();
 }
@@ -133,6 +142,11 @@ function eatPiece(formerSquare, newSquare) {
     // get the characteristics of the piece...
     const eater = formerSquare.getAttribute("player");
     const piece = newSquare.getAttribute("content");
+
+    // (check whether the game just ended!!!)
+    if (piece === "koropokurru") {
+        alert(`Congratulations! ${players[currentPlayer]["name"]} has won`)
+    }
 
     // ...and put them in a div...
     const reserveSquare = document.createElement("div");
@@ -151,6 +165,19 @@ function eatPiece(formerSquare, newSquare) {
 
     // And of course move the piece
     movePiece(formerSquare, newSquare);
+    
+}
+
+function newGame() {
+    board.setXandY(allSquares);
+    board.setUpBoard(allSquares);
+    player1Reserve.innerHTML = "";
+    player2Reserve.innerHTML = "";
+    boardPieceIsSelected = false;
+    reservePieceIsSelected = false;
+    activePiece = null;
+    currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
+    alert(`${players[currentPlayer]["name"]} will start this time`);
 }
 
 
@@ -169,9 +196,14 @@ for (let i = 0; i < 4; i++) {
 
 const rulesButton = document.querySelector(".rules");
 rulesButton.addEventListener('click', () => alert(`
-This game is inspired by the Shogi, often called "japanese chess". Shogi is very similar to chess - with some variation on the movements of each piece - except that you can return captured pieces to the board as your own. \n 
+This game is inspired by the Shogi, often called "japanese chess". Shogi is very similar to chess - except that you can return captured pieces to the board as your own. \n 
 Here are the rules to this simplified version : \n
 1. The goal is to capture the enemy Koropokurru. \n
 2. The way each piece moves is indicated on it. To move a piece, select it and click on its destination. \n
 3. If you capture a piece, it appears in the reserve and becomes available for you to put on an empty square at any point (but of course during your turn).
 `))
+
+// Launch a new game when the button is clicked
+
+const newGameButton = document.querySelector(".new-game");
+newGameButton.addEventListener('click', newGame);

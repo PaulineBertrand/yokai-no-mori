@@ -28,7 +28,6 @@ nav {
     display: flex;
     justify-content: space-between;
     background-color: var(--navbar-color);
-    padding: 20px;
 }
 
 button {
@@ -55,8 +54,8 @@ h1 {
     justify-content: center;
     align-items: center;
     height: var(--square-size);
-    width: 3*var(--square-size);
-    margin: 10px;
+    /* width: 3*var(--square-size); */
+    /* margin: 10px; */
 }
 
 .board {
@@ -86,11 +85,11 @@ h1 {
 }
 
 h2 {
-    padding: 20px;
+    padding: 10px;
 }
 
 .possible-movements {
-    border: 5px solid black;
+    backdrop-filter: hue-rotate(20deg);
 }
 
 
