@@ -5,7 +5,7 @@
 }
 
 :root {
-    --light-background: #fff3f0;
+    --light-background: #a8dadc;
     --reddish-color: #89043d;
     --navbar-color: #014152;
     --button-color: #219C85;
@@ -22,6 +22,7 @@ body {
     background-image: url("hasan-almasi-Fcsdj1fcrac-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: 'Montserrat', 'sans-serif';
 }
 
 nav {
@@ -127,4 +128,56 @@ h2 {
 
 [player="player2"] {
     transform: rotate(180deg);
+}
+
+/* For all modal purposes I used Dev Ed's material on yt : https://www.youtube.com/watch?v=KjQ8uvAt9kQ&ab_channel=DevEd*/
+
+.modal {
+    position: relative;
+    height: 300px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--light-background);
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(141, 116, 116, 0.5);
+    visibility: hidden;
+    z-index: 10;
+}
+
+.modal-background.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.names {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.turn-error {
+    visibility: hidden;
 }
