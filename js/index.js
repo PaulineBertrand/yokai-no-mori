@@ -13,9 +13,7 @@ function newGame3x4() {
     board.setUpBoard(allSquares);
 
     // getting players names, displaying them and deciding which player starts
-    players.nameModal();
-    let currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
-
+    let currentPlayer = players.dealingWithNames();
     // initializing variables and getting some HTML locations
 
     let boardPieceIsSelected = false;
@@ -37,7 +35,7 @@ function newGame3x4() {
         // First we check whether it's the first or second click / whether a piece has been selected
         if (!boardPieceIsSelected && !reservePieceIsSelected) {
             if (board.checkIsEmpty(square) || board.checkEnemyPiece(currentPlayer, square)) {
-                alert(`${players[currentPlayer]["name"]}, please select one of your pieces!`);
+                alert(`${currentPlayer}, please select one of your pieces!`);
 
             } else {
                 boardPieceIsSelected = true;
@@ -147,7 +145,7 @@ function newGame3x4() {
 
         // (check whether the game just ended!!!)
         if (piece === "koropokurru") {
-            alert(`Congratulations! ${players[currentPlayer]["name"]} has won`)
+            alert(`Congratulations! ${players.currentPlayer} has won`)
         }
 
         // ...and put them in a div...
@@ -170,17 +168,17 @@ function newGame3x4() {
         
     }
 
-    function newGame() {
-        board.setXandY(allSquares);
-        board.setUpBoard(allSquares);
-        player1Reserve.innerHTML = "";
-        player2Reserve.innerHTML = "";
-        boardPieceIsSelected = false;
-        reservePieceIsSelected = false;
-        activePiece = null;
-        currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
-        alert(`${players[currentPlayer]["name"]} will start this time`);
-    }
+    // function newGame() {
+    //     board.setXandY(allSquares);
+    //     board.setUpBoard(allSquares);
+    //     player1Reserve.innerHTML = "";
+    //     player2Reserve.innerHTML = "";
+    //     boardPieceIsSelected = false;
+    //     reservePieceIsSelected = false;
+    //     activePiece = null;
+    //     currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
+    //     alert(`${players[currentPlayer]["name"]} will start this time`);
+    // }
 
 
     // -------------------------------------------------------------------------------------

@@ -25,22 +25,12 @@ body {
     font-family: 'Montserrat', 'sans-serif';
 }
 
-nav {
+.nav-buttons-container {
     display: flex;
-    justify-content: space-between;
-    background-color: var(--navbar-color);
-}
-
-button {
-    background-color: var(--button-color);
-    width: 100px;
-    height: 30px;
-    margin: 20px;
-}
-
-h1 {
-    color: var(--auxiliary-color);
-    padding: 10px;
+    justify-content: center;
+    gap: 40px;
+    margin: 30px;
+    /* background-color: var(--navbar-color); */
 }
 
 .big-container {
@@ -60,24 +50,24 @@ h1 {
 }
 
 .board {
-    /* box-sizing: border-box doesn't seem to work here and I don't know why */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    background-color: var(--board-color);
     /* max-width: 40%; */
     /* min-width: 500px; */
     /* min-height:  */
     width: 3*var(--square-size) - 4px;
     height: 4*var(--square-size) - 4px;
-    border: 2px solid black;
-    background-image: url("WoodPattern.jpg");
+    gap: 0.8em;
 }
 
 .square {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     width: var(--square-size);
     height: var(--square-size);
+    /* background-image: url("WoodPattern.jpg"); */
+    border-radius: 10px;
+    background-color: #2B0504;
 }
 
 .reserve-square {
@@ -87,6 +77,7 @@ h1 {
 
 h2 {
     padding: 10px;
+    font-size: 1.5em;
 }
 
 .possible-movements {
@@ -94,33 +85,33 @@ h2 {
 }
 
 
-[content="koropokurru"] {
-    background-image: url("yokaiKoroppuru.png");
+[content="koropokurru"].reserve-square {
+    background-image: url("koropokurruEmpty-removebg-preview.png");
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-[content="kodama"] {
-    background-image: url("yokaiKodama.png");
-    background-size: 80%;
+[content="kodama"].reserve-square {
+    background-image: url("kodama-removebg-preview.png");
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;}
 
-[content="kitsune"] {
-    background-image: url("yokaiKitsune.png");
-    background-size: 80%;
+[content="kitsune"].reserve-square {
+    background-image: url("KitsuneKitsune-removebg-preview.png");
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;}
 
-[content="tanuki"] {
-    background-image: url("yokaiTanuki.png");
-    background-size: 80%;
+[content="tanuki"].reserve-square {
+    background-image: url("tanukitanuki-removebg-preview.png");
+    background-size: 65%;
     background-repeat: no-repeat;
     background-position: center;}
 
-[content="samurai"] {
-    background-image: url("yokaiSamurai.png");
+[content="samurai"].reserve-square {
+    background-image: url("samurai-removebg-preview.png");
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
@@ -130,54 +121,109 @@ h2 {
     transform: rotate(180deg);
 }
 
+/* And now for the versions with the background*/
+
+[content="koropokurru"]:not(.reserve-square) {
+    background-image: url("koropokurruEmpty-removebg-preview.png");
+    background-size: 80%;
+    background-color: #2B0504;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+[content="kodama"]:not(.reserve-square) {
+    background-image: url("kodama-removebg-preview.png");
+    background-size: 50%;
+    background-color: #2B0504;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+[content="kitsune"]:not(.reserve-square) {
+    background-image: url("KitsuneKitsune-removebg-preview.png");
+    background-size: 60%;
+    background-color: #2B0504;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+[content="tanuki"]:not(.reserve-square) {
+    background-image: url("tanukitanuki-removebg-preview.png");
+    background-size: 65%;
+    background-color: #2B0504;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+[content="samurai"]:not(.reserve-square) {
+    background-image: url("samurai-removebg-preview.png");
+    background-size: 80%;
+    background-color: #2B0504;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
 /* For all modal purposes I used Dev Ed's material on yt : https://www.youtube.com/watch?v=KjQ8uvAt9kQ&ab_channel=DevEd*/
 
 .modal {
-    position: relative;
+    position: absolute;
     height: 300px;
     width: 500px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--light-background);
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+    display: none;
 }
 
-.modal-background {
+.modal-background, .random-modal-background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(141, 116, 116, 0.5);
-    visibility: hidden;
+    display: none;
     z-index: 10;
 }
 
-.modal-background.active {
-    visibility: visible;
-    opacity: 1;
+.modal-background.active, .random-modal-background.active {
+    display: block;
 }
 
 .modal.active {
-    visibility: visible;
-    opacity: 1;
+    display: flex;
 }
 
 .names {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     flex-direction: column;
     padding: 30px;
+    justify-content: space-around;
+}
+
+.random {
+    justify-content: center;
+    align-items: center;
+}
+
+.names input {
+    height: 40px;
 }
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     cursor: pointer;
 }
 
 .turn-error {
-    visibility: hidden;
+    display: none;
 }
