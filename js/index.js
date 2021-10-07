@@ -129,10 +129,11 @@ function movePiece(formerSquare, newSquare) {
     // check if there is a victory by Koropokurru to the finish line
     if (piece === "koropokurru") {
         if (activePlayer === "player1" && Number(newSquare.getAttribute("x")) === 0) {
-            alert(`Congratulations!! ${players[activePlayer]["name"]} has won!!`);
+            players.winModal(`${players[activePlayer]["name"]}`)
         };
         if (activePlayer === "player2" && Number(newSquare.getAttribute("x")) === 3) {
-            alert(`Congratulations!! ${players[activePlayer]["name"]} has won!!`);
+            players.winModal(`${players[activePlayer]["name"]}`)
+
         };
     };
 
@@ -150,7 +151,7 @@ function eatPiece(formerSquare, newSquare) {
 
     // (check whether the game just ended!!!)
     if (piece === "koropokurru") {
-        alert(`Congratulations! ${players[currentPlayer]["name"]} has won`)
+        players.winModal(`${players[currentPlayer]["name"]}`)
     }
 
     // ...and put them in a div...
@@ -207,14 +208,8 @@ for (let i = 0; i < 4; i++) {
 
 // the rules should appear when we click the button
 
-const rulesButton = document.querySelector(".rules");
-rulesButton.addEventListener('click', () => alert(`
-This game is inspired by the Shogi, often called "japanese chess". Shogi is very similar to chess - except that you can return captured pieces to the board as your own. \n 
-Here are the rules to this simplified version : \n
-1. The goal is to capture the enemy Koropokurru. \n
-2. The way each piece moves is indicated on it. To move a piece, select it and click on its destination. \n
-3. If you capture a piece, it appears in the reserve and becomes available for you to put on an empty square at any point (but of course during your turn).
-`))
+const rulesButton = document.querySelector(".rules-button");
+rulesButton.addEventListener('click', players.displayRules)
 
 // Launch a new game when the button is clicked
 
