@@ -5,11 +5,11 @@ export function changeTurn(player) {
 // these probably don't need to be objects, might change them later
 
 export let player1 = {
-    name: "Alice"
+    name: ""
 }
 
 export let player2 = {
-    name: "Bob"
+    name: ""
 }
 
 export function winModal(playerName) {
@@ -38,6 +38,7 @@ export function displayRules() {
 
     modal.classList.add("active");
     modalBackground.classList.add("active");
+    
 
     closeButton.addEventListener('click', () => {
         modal.classList.remove("active");
@@ -54,7 +55,4 @@ export function errorMessage(playerName) {
     let timeID = setTimeout(() => {errorMessage.classList.remove("active")}, 1000);
 }
 
-// export function nameModal() {
-
-// }
 

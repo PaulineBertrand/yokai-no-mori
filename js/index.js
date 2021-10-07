@@ -10,18 +10,48 @@ const allSquares = document.querySelectorAll(".square");
 board.setXandY(allSquares);
 board.setUpBoard(allSquares);
 
-//
-// getting players names, displaying them and deciding which player starts
-players.player1.name = prompt("Please enter your name. We will decide who starts at random.");
-players.player2.name = prompt("Please enter the name for the other player");
+let currentPlayer;
+    // Modal window
+    const modal = document.querySelector(".name.modal");
+    const modalBackground = document.querySelector(".name.modal-background");
+    const closeButton = document.querySelector(".name .close-button");
+    const bigContainer = document.querySelector(".big-container");
 
-const namePlayer1 = document.querySelector(".player-1-name");
-const namePlayer2 = document.querySelector(".player-2-name");
-namePlayer1.innerText = players.player1.name;
-namePlayer2.innerText = players.player2.name;
+    modal.classList.add("active");
+    modalBackground.classList.add("active");
+    bigContainer.classList.add("disappear");
 
-let currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
-alert(`${players[currentPlayer]["name"]} will start this time`);
+    closeButton.addEventListener('click', () => {
+        modal.classList.remove("active");
+        modalBackground.classList.remove("active");
+        bigContainer.classList.remove("disappear");
+    })    
+  
+    // Managing and displaying inputs/names
+    let input1 = document.querySelector(".input1")
+    let input2 = document.querySelector(".input2")
+
+    const namePlayer1 = document.querySelector(".player-1-name");
+    const namePlayer2 = document.querySelector(".player-2-name");
+
+    input1.addEventListener('input', (event) => {
+            players.player1.name = input1.value;
+            namePlayer1.innerText = players.player1.name;
+    })
+
+    input2.addEventListener('keydown', (event) => {
+        if (event.code === 'Enter') {
+            players.player2.name = input2.value;
+            namePlayer2.innerText = players.player2.name;
+            currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
+            const chosenParagraph = document.querySelector(".random-message");
+            let player = (currentPlayer === "player1" ? players.player1.name : players.player2.name);
+            chosenParagraph.textContent = `${player} will start this round!`;
+            console.log(currentPlayer)
+            return currentPlayer;
+        }
+    })
+
 
 // initializing variables and getting some HTML locations
 
@@ -44,7 +74,8 @@ function squareClicked(event) {
     // First we check whether it's the first or second click / whether a piece has been selected
     if (!boardPieceIsSelected && !reservePieceIsSelected) {
         if (board.checkIsEmpty(square) || board.checkEnemyPiece(currentPlayer, square)) {
-            players.errorMessage(`${players[currentPlayer]["name"]}`);
+            console.log(currentPlayer)
+            players.errorMessage(`${(currentPlayer === "player1" ? players.player1.name : players.player2.name)}`);
 
         } else {
             boardPieceIsSelected = true;
@@ -127,7 +158,7 @@ function movePiece(formerSquare, newSquare) {
     // check if there is a victory by Koropokurru to the finish line
     if (piece === "koropokurru") {
         if (activePlayer === "player1" && Number(newSquare.getAttribute("x")) === 0) {
-            players.winModal(`${players[activePlayer]["name"]}`)
+            players.winModal(`${players.player1.name}`)
             board.setXandY(allSquares);
             board.setUpBoard(allSquares);
             player1Reserve.innerHTML = "";
@@ -135,7 +166,7 @@ function movePiece(formerSquare, newSquare) {
 
         };
         if (activePlayer === "player2" && Number(newSquare.getAttribute("x")) === 3) {
-            players.winModal(`${players[activePlayer]["name"]}`)
+            players.winModal(`${players.player2.name}`)
             board.setXandY(allSquares);
             board.setUpBoard(allSquares);
             player1Reserve.innerHTML = "";
@@ -173,7 +204,7 @@ function eatPiece(formerSquare, newSquare) {
     
     // (check whether the game just ended!!!)
     if (piece === "koropokurru") {
-        players.winModal(`${players[currentPlayer]["name"]}`)
+        players.winModal(`${(eater === "player1" ? players.player1.name : players.player2.name)}`)
         board.setXandY(allSquares);
         board.setUpBoard(allSquares);
         player1Reserve.innerHTML = "";
@@ -199,9 +230,7 @@ function newGame() {
     namePlayer1.innerText = players.player1.name;
     namePlayer2.innerText = players.player2.name;
     currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
-    alert(`${players[currentPlayer]["name"]} will start this time`);
-
-
+    alert(`${(currentPlayer === "player1" ? players.player1.name : players.player2.name)} will start this time`);
 }
 
 

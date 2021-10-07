@@ -133,6 +133,18 @@ nav a {
     cursor: pointer;
 }
 
+.name.active {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+}
+
+.name.active * {
+    margin: 10px;
+    font-size: 1em;
+}
+
 .modal {
     display: none;
     position: relative;
