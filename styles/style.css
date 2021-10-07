@@ -14,7 +14,7 @@
     --auxiliary-color: black;
     --accent-color: #76B07A;
     --board-color: #CC7722;
-    --square-size: 100px;
+    --square-size: 90px;
 }
 
 body {
@@ -22,25 +22,24 @@ body {
     background-image: url("hasan-almasi-Fcsdj1fcrac-unsplash.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: 'Montserrat', 'sans serif';
 }
 
-nav {
+.nav-buttons-container {
     display: flex;
-    justify-content: space-between;
-    background-color: var(--navbar-color);
+    justify-content: center;
 }
 
-button {
-    background-color: var(--button-color);
-    width: 100px;
-    height: 30px;
+nav a {
+    display: flex;
+    justify-content: center;
+    align-items: flex;
     margin: 20px;
-}
-
-h1 {
-    color: var(--auxiliary-color);
+    border-radius: 5px;
+    border: 2px solid black;
     padding: 10px;
 }
+
 
 .big-container {
     display: flex;
@@ -59,24 +58,19 @@ h1 {
 }
 
 .board {
-    /* box-sizing: border-box doesn't seem to work here and I don't know why */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    background-color: var(--board-color);
-    /* max-width: 40%; */
-    /* min-width: 500px; */
-    /* min-height:  */
-    width: 3*var(--square-size) - 4px;
-    height: 4*var(--square-size) - 4px;
-    border: 2px solid black;
-    background-image: url("WoodPattern.jpg");
+    width: 3*var(--square-size);
+    height: 4*var(--square-size);
+    grid-gap: 15px;
 }
 
 .square {
-    border: 2px solid black;
     width: var(--square-size);
     height: var(--square-size);
+    border-radius: 20px;
+    background-color: #330d00;
 }
 
 .reserve-square {
@@ -84,43 +78,43 @@ h1 {
     height: var(--square-size);
 }
 
-h2 {
+.player-2-name {
     padding: 10px;
 }
 
 .possible-movements {
-    backdrop-filter: hue-rotate(20deg);
+    filter: contrast(150%);
 }
 
 
 [content="koropokurru"] {
-    background-image: url("yokaiKoroppuru.png");
-    background-size: 80%;
+    background-image: url("koropokurru-removebg-preview.png");
+    background-size: 72%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 [content="kodama"] {
-    background-image: url("yokaiKodama.png");
-    background-size: 80%;
+    background-image: url("kodama-removebg-preview.png");
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;}
 
 [content="kitsune"] {
-    background-image: url("yokaiKitsune.png");
-    background-size: 80%;
+    background-image: url("kitsune-removebg-preview.png");
+    background-size: 65%;
     background-repeat: no-repeat;
     background-position: center;}
 
 [content="tanuki"] {
-    background-image: url("yokaiTanuki.png");
-    background-size: 80%;
+    background-image: url("tanuki-removebg-preview.png");
+    background-size: 65%;
     background-repeat: no-repeat;
     background-position: center;}
 
 [content="samurai"] {
-    background-image: url("yokaiSamurai.png");
-    background-size: 80%;
+    background-image: url("samurai-removebg-preview.png");
+    background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
 }

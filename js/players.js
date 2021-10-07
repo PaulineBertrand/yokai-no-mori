@@ -11,3 +11,4 @@ export let player1 = {
 export let player2 = {
     name: "Bob"
 }
+

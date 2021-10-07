@@ -181,8 +181,16 @@ function newGame() {
     boardPieceIsSelected = false;
     reservePieceIsSelected = false;
     activePiece = null;
+    players.player1.name = prompt("Please enter your name. We will decide who starts at random.");
+    players.player2.name = prompt("Please enter the name for the other player");
+    const namePlayer1 = document.querySelector(".player-1-name");
+    const namePlayer2 = document.querySelector(".player-2-name");
+    namePlayer1.textContent = players.player1.name;
+    namePlayer2.textContent = players.player2.name;
     currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
     alert(`${players[currentPlayer]["name"]} will start this time`);
+
+
 }
 
 
