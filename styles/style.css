@@ -87,7 +87,9 @@ nav a {
 }
 
 .possible-movements {
-    filter: contrast(150%);
+    background-color: #461403;
+    border: 3px solid #7c3d28;
+    border-radius: 20px;
 }
 
 
@@ -188,4 +190,21 @@ nav a {
 
 .rules h4 {
     margin-bottom: 10px;
+}
+
+.error-message {
+    position: absolute;
+    top: 55%;
+    left: 100px;
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+
+.error-message.active {
+    display: block;
+    opacity: 1;
+}
+
+.error-message:hover {
+    cursor: default;
 }

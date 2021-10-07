@@ -17,8 +17,8 @@ players.player2.name = prompt("Please enter the name for the other player");
 
 const namePlayer1 = document.querySelector(".player-1-name");
 const namePlayer2 = document.querySelector(".player-2-name");
-namePlayer1.textContent = players.player1.name;
-namePlayer2.textContent = players.player2.name;
+namePlayer1.innerText = players.player1.name;
+namePlayer2.innerText = players.player2.name;
 
 let currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
 alert(`${players[currentPlayer]["name"]} will start this time`);
@@ -44,7 +44,7 @@ function squareClicked(event) {
     // First we check whether it's the first or second click / whether a piece has been selected
     if (!boardPieceIsSelected && !reservePieceIsSelected) {
         if (board.checkIsEmpty(square) || board.checkEnemyPiece(currentPlayer, square)) {
-            alert(`${players[currentPlayer]["name"]}, please select one of your pieces!`);
+            players.errorMessage(`${players[currentPlayer]["name"]}`);
 
         } else {
             boardPieceIsSelected = true;
@@ -97,8 +97,6 @@ function landOnBoard(reserveSquare, square) {
     if (square.getAttribute('content') === "empty") {
         square.setAttribute("content", piece);
         square.setAttribute("player", player);
-    } else {
-        alert("Please click on an empty square")
     };
 
     // remove the piece from the reserve
@@ -130,9 +128,18 @@ function movePiece(formerSquare, newSquare) {
     if (piece === "koropokurru") {
         if (activePlayer === "player1" && Number(newSquare.getAttribute("x")) === 0) {
             players.winModal(`${players[activePlayer]["name"]}`)
+            board.setXandY(allSquares);
+            board.setUpBoard(allSquares);
+            player1Reserve.innerHTML = "";
+            player2Reserve.innerHTML = "";
+
         };
         if (activePlayer === "player2" && Number(newSquare.getAttribute("x")) === 3) {
             players.winModal(`${players[activePlayer]["name"]}`)
+            board.setXandY(allSquares);
+            board.setUpBoard(allSquares);
+            player1Reserve.innerHTML = "";
+            player2Reserve.innerHTML = "";
 
         };
     };
@@ -149,11 +156,6 @@ function eatPiece(formerSquare, newSquare) {
     const eater = formerSquare.getAttribute("player");
     const piece = newSquare.getAttribute("content");
 
-    // (check whether the game just ended!!!)
-    if (piece === "koropokurru") {
-        players.winModal(`${players[currentPlayer]["name"]}`)
-    }
-
     // ...and put them in a div...
     const reserveSquare = document.createElement("div");
     reserveSquare.classList.add("reserve-square");
@@ -166,12 +168,20 @@ function eatPiece(formerSquare, newSquare) {
         player2Reserve.appendChild(reserveSquare);
     }
 
-    // Finally, put an event listener on it 
-    reserveSquare.addEventListener('click', reserveSquareClicked);
-
     // And of course move the piece
     movePiece(formerSquare, newSquare);
     
+    // (check whether the game just ended!!!)
+    if (piece === "koropokurru") {
+        players.winModal(`${players[currentPlayer]["name"]}`)
+        board.setXandY(allSquares);
+        board.setUpBoard(allSquares);
+        player1Reserve.innerHTML = "";
+        player2Reserve.innerHTML = "";
+    }
+
+    // Finally, put an event listener on it 
+    reserveSquare.addEventListener('click', reserveSquareClicked);
 }
 
 function newGame() {
@@ -186,8 +196,8 @@ function newGame() {
     players.player2.name = prompt("Please enter the name for the other player");
     const namePlayer1 = document.querySelector(".player-1-name");
     const namePlayer2 = document.querySelector(".player-2-name");
-    namePlayer1.textContent = players.player1.name;
-    namePlayer2.textContent = players.player2.name;
+    namePlayer1.innerText = players.player1.name;
+    namePlayer2.innerText = players.player2.name;
     currentPlayer = "player" + String(Math.floor(Math.random()*2 + 1));
     alert(`${players[currentPlayer]["name"]} will start this time`);
 

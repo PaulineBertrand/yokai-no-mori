@@ -98,7 +98,6 @@ export function showPossibleMovements(square) {
         if (possiblePositionSquare.getAttribute("player") !== player) { 
             possiblePositionSquare.classList.add("possible-movements");
         };
-        console.log(possiblePositions);
     });
 }
 
