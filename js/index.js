@@ -5,20 +5,39 @@ import * as players from "./players.js";
 // -----------------------------------------------------------------------------
 
 const allSquares = document.querySelectorAll(".square");
-board.setXandY(allSquares);
-board.setUpBoard(allSquares);
+let player1Reserve = document.querySelector(".player1.reserve");
+let player2Reserve = document.querySelector(".player2.reserve");
+player1Reserve.innerHTML = "";
+player2Reserve.innerHTML = "";
+let currentPlayer = "";
 
 //------------------------------------------------------------------------------
 
 function newGame() {
 
     // Setting up the board
-    const allSquares = document.querySelectorAll(".square");
     board.setXandY(allSquares);
     board.setUpBoard(allSquares);
 
+    player1Reserve.innerHTML = "";
+    player2Reserve.innerHTML = "";
+
+    // initializing variables and getting some HTML locations
+
+    let boardPieceIsSelected = false;
+    let reservePieceIsSelected = false;
+    let activePiece = "";
+
+    const namePlayer1 = document.querySelector(".player-1-name");
+    const namePlayer2 = document.querySelector(".player-2-name");
+    namePlayer1.textContent = "";
+    namePlayer2.textContent = "";
+
+    players.player1.name = "";
+    players.player2.name = "";
+
     // I need these for player name choice
-    let currentPlayer;
+    currentPlayer = "";
     const chosenParagraph = document.querySelector(".random-message");
     chosenParagraph.textContent ="";
 
@@ -32,18 +51,19 @@ function newGame() {
         modalBackground.classList.add("active");
         bigContainer.classList.add("disappear");
 
+         // Managing and displaying inputs/names
+         let input1 = document.querySelector(".input1")
+         let input2 = document.querySelector(".input2")
+
         closeButton.addEventListener('click', () => {
             modal.classList.remove("active");
             modalBackground.classList.remove("active");
             bigContainer.classList.remove("disappear");
+            input1.value = "";
+            input2.value = "";
         })    
     
-        // Managing and displaying inputs/names
-        let input1 = document.querySelector(".input1")
-        let input2 = document.querySelector(".input2")
-
-        const namePlayer1 = document.querySelector(".player-1-name");
-        const namePlayer2 = document.querySelector(".player-2-name");
+       
 
         input1.addEventListener('input', (event) => {
                 players.player1.name = input1.value;
@@ -61,15 +81,7 @@ function newGame() {
         })
 
 
-    // initializing variables and getting some HTML locations
-
-    let boardPieceIsSelected = false;
-    let reservePieceIsSelected = false;
-    let activePiece;
-
-    const player1Reserve = document.querySelector(".player1.reserve");
-    const player2Reserve = document.querySelector(".player2.reserve");
-
+    
     //------------------------------------------------------------------------------
 
     // Deciding what to do after a square on the board is clicked
@@ -121,6 +133,8 @@ function newGame() {
     function reserveSquareClicked(event) {
         reservePieceIsSelected = true;
         activePiece = event.target;
+        console.log(activePiece)
+
     }
 
 
@@ -145,7 +159,7 @@ function newGame() {
         // then update relevant variables for end of turm
         activePiece = null;
         currentPlayer = players.changeTurn(currentPlayer);
-        reservePieceIsSelected = false;
+        let timeoutID = setTimeout(() => reservePieceIsSelected = false, 500);
     }
 
 
@@ -171,7 +185,8 @@ function newGame() {
                 board.setUpBoard(allSquares);
                 player1Reserve.innerHTML = "";
                 player2Reserve.innerHTML = "";
-                
+                namePlayer1.textContent = "";
+                namePlayer2.textContent = "";
 
             };
             if (activePlayer === "player2" && Number(newSquare.getAttribute("x")) === 3) {
@@ -180,7 +195,8 @@ function newGame() {
                 board.setUpBoard(allSquares);
                 player1Reserve.innerHTML = "";
                 player2Reserve.innerHTML = "";
-                
+                namePlayer1.textContent = "";
+                namePlayer2.textContent = "";
             };
         };
 
@@ -218,7 +234,9 @@ function newGame() {
             board.setUpBoard(allSquares);
             player1Reserve.innerHTML = "";
             player2Reserve.innerHTML = "";
-            
+            namePlayer1.textContent = "";
+            namePlayer2.textContent = "";  
+
         }
 
         // Finally, put an event listener on it 
@@ -236,6 +254,8 @@ function newGame() {
         }
     }
 }
+
+
 // the rules should appear when we click the button
 
 const rulesButton = document.querySelector(".rules-button");

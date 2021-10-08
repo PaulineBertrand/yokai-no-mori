@@ -5,6 +5,7 @@ export function setXandY(allSquares) {
        allSquares[i].setAttribute("x", Math.floor(i/3));
        allSquares[i].setAttribute("y", i%3);
        allSquares[i].setAttribute("content", "empty");
+       allSquares[i].setAttribute("player", "noplayer")
     }
 }
 
@@ -57,6 +58,3 @@ export function cleanAllPossibleMovementClasses() {
     const allSquares = document.querySelectorAll(".square");
     allSquares.forEach((square) => square.classList.remove("possible-movements"));
 }
-
-
-
